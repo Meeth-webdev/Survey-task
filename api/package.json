@@ -10,11 +10,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@hono/oauth-providers": "^0.8.5",
+    "drizzle-orm": "^0.45.2",
     "hono": "^4.12.22"
   },
   "devDependencies": {
-    "@types/node": "^25.9.1",
+    "@cloudflare/workers-types": "^4.20260610.1",
+    "@types/node": "^25.9.2",
+    "drizzle-kit": "^0.31.10",
     "typescript": "^6.0.3",
-    "wrangler": "^4.94.0"
+    "wrangler": "^4.99.0"
   }
 }

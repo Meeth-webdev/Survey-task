@@ -14,5 +14,10 @@
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
     "concurrently": "^9.2.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": "0.28.0"
+    }
   }
 }

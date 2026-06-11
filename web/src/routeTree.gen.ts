@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as SSurveyIdRouteImport } from './routes/s/$surveyId'
+import { Route as DashboardSurveysSurveyIdRouteImport } from './routes/dashboard/surveys/$surveyId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SSurveyIdRoute = SSurveyIdRouteImport.update({
+  id: '/s/$surveyId',
+  path: '/s/$surveyId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardSurveysSurveyIdRoute =
+  DashboardSurveysSurveyIdRouteImport.update({
+    id: '/dashboard/surveys/$surveyId',
+    path: '/dashboard/surveys/$surveyId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/s/$surveyId': typeof SSurveyIdRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/surveys/$surveyId': typeof DashboardSurveysSurveyIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/s/$surveyId': typeof SSurveyIdRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/surveys/$surveyId': typeof DashboardSurveysSurveyIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/s/$surveyId': typeof SSurveyIdRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/surveys/$surveyId': typeof DashboardSurveysSurveyIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/s/$surveyId'
+    | '/dashboard/'
+    | '/dashboard/surveys/$surveyId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/s/$surveyId' | '/dashboard' | '/dashboard/surveys/$surveyId'
+  id:
+    | '__root__'
+    | '/'
+    | '/s/$surveyId'
+    | '/dashboard/'
+    | '/dashboard/surveys/$surveyId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SSurveyIdRoute: typeof SSurveyIdRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardSurveysSurveyIdRoute: typeof DashboardSurveysSurveyIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/s/$surveyId': {
+      id: '/s/$surveyId'
+      path: '/s/$surveyId'
+      fullPath: '/s/$surveyId'
+      preLoaderRoute: typeof SSurveyIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/surveys/$surveyId': {
+      id: '/dashboard/surveys/$surveyId'
+      path: '/dashboard/surveys/$surveyId'
+      fullPath: '/dashboard/surveys/$surveyId'
+      preLoaderRoute: typeof DashboardSurveysSurveyIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SSurveyIdRoute: SSurveyIdRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  DashboardSurveysSurveyIdRoute: DashboardSurveysSurveyIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

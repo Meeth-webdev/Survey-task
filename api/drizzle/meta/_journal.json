@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1781085154082,
+      "tag": "0000_zippy_moon_knight",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1781099577366,
+      "tag": "0001_careful_maggott",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1781190978856,
+      "tag": "0002_motionless_titania",
+      "breakpoints": true
+    }
+  ]
+}
