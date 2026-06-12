@@ -11,6 +11,9 @@ build/
 .vscode/
 .idea/
 
+
+api/wrangler.jsonc
+
 # wrangler-generated types — regenerate on `pnpm install` via api/postinstall
 api/worker-configuration.d.ts
 
