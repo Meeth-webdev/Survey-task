@@ -65,36 +65,43 @@ surveysApi.get('/', async (c) => {
 
 // POST /api/surveys/:id/questions -> Adds a blank question
 surveysApi.post('/:id/questions', async (c) => {
-  const db = drizzle(c.env.DB)
-  const surveyId = c.req.param('id')
+  const db = drizzle(c.env.DB);
+  const surveyId = c.req.param('id');
 
   try {
-    const newQuestionId = crypto.randomUUID()
+    // 1. Fetch the current questions to figure out the correct position
+    const existingQuestions = await db.select()
+      .from(questions)
+      .where(eq(questions.surveyId, surveyId))
+      .all();
+      
+    // 2. The next position is simply the length of the array
+    const nextPosition = existingQuestions.length; 
+
+    const newQuestionId = crypto.randomUUID();
 
     await db.insert(questions).values({
       id: newQuestionId,
       surveyId: surveyId,
       type: 'text',
       questionText: '',
-      position: 0,
-      options: ['Option 1'],
+      position: nextPosition, // <--- FIX: Dynamically sets it to the bottom!
+      options: ['Option 1'], 
       required: false,
-    })
+    });
 
-    return c.json(
-      {
-        id: newQuestionId,
-        type: 'text',
-        questionText: '',
-        options: ['Option 1'],
-      },
-      201,
-    )
+    return c.json({ 
+      id: newQuestionId, 
+      type: 'text', 
+      questionText: '', 
+      options: ['Option 1'] 
+    }, 201);
+
   } catch (error) {
-    console.error(error)
-    return c.json({ error: 'Failed to add question' }, 500)
+    console.error(error);
+    return c.json({ error: 'Failed to add question' }, 500);
   }
-})
+});
 
 // PUT /api/surveys/:id -> Updates the survey metadata and questions
 surveysApi.put('/:id', async (c) => {
