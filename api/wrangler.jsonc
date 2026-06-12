@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sde-intern-task-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-22",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "GOOGLE_CLIENT_ID": "Your Google Client ID here",
+    "GOOGLE_CLIENT_SECRET": "Your Google Client Secret here",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "survicate-db",
+      "database_id": "local-dev-id",
+      "migrations_dir": "drizzle"
+    }
+  ]
+
+  // Add bindings here as you need them, then run `pnpm cf-typegen` to refresh `Env` types.
+  //
+  // Examples:
+  //
+  // "d1_databases": [
+  //   { "binding": "DB", "database_name": "survey-builder", "database_id": "<id>" }
+  // ],
+  //
+  // "kv_namespaces": [
+  //   { "binding": "SESSIONS", "id": "<id>" }
+  // ],
+  //
+  // "r2_buckets": [
+  //   { "binding": "ASSETS", "bucket_name": "survey-builder-assets" }
+  // ]
+}
